@@ -1,10 +1,11 @@
 const express = require('express');
 const server = express();
-
-server.get('/teste',(req,res)=>{
-    res.send('Tudo certo com a API')
-})
+const TaskRoutes = require('./routes/TaskRoutes');
+server.use(express.json());
 
 server.listen(3000, () => {
     console.log('API ONLiNE')
 });
+
+
+server.use('/task', TaskRoutes);
