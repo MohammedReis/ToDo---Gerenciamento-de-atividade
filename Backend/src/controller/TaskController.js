@@ -45,6 +45,19 @@ class TaskController{
         });
 
     }
+    async Delete(req,res){
+        await TaskModel.findByIdAndDelete(req.params.id)
+        .then(response => {
+            if(response){
+                return res.status(200).json(response);
+            }else{
+                return res.status(404).json({error:'Tarefa não encontrada'});
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+    }
 }
 
 module.exports = new TaskController();
