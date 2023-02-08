@@ -6,7 +6,7 @@ class TaskController{
         await task
         .save()
         .then(response => {
-            return res.status(200).json(response);
+            return res.status(201).json(response);
         })
         .catch(err => {
             return res.status(500).json(err);
@@ -23,13 +23,27 @@ class TaskController{
     }
     async All (req, res){
         await TaskModel.find({macaddress:{'$in':req.body.macaddress}})
-                .sort('when')
-                .then(response => {
-                    return res.status(200).json(response);
-                })
-                .catch(err => {
-                    return res.status(500).json(err);
-                });
+        .sort('when')
+        .then(response => {
+            return res.status(200).json(response);
+        })
+        .catch(err => {
+            return res.status(500).json(err);
+        });
+    }
+    async Show(req,res){
+        await TaskModel.findById(req.params.id)
+        .then(response => {
+            if(response){
+                return res.status(200).json(response);
+            }else{
+                return res.status(404).json({error:'Tarefa não encontrada'});
+            }
+        })
+        .catch(err => {
+            return res.status(500).json(err);
+        });
+
     }
 }
 
