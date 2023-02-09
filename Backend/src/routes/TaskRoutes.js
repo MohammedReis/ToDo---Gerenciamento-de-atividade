@@ -11,9 +11,11 @@ router.put('/:id/:done', TaskController.Done);
 router.get('/:id',TaskController.Show);
 router.delete('/:id',TaskController.Delete);
 router.get('/filter/all',MacaddressValidation,TaskController.All);
-router.get('/filter/today',MacaddressValidation,TaskController.Today);
-
 router.get('/filter/late',MacaddressValidation,TaskController.Late);
+router.get('/filter/today',MacaddressValidation,TaskController.Today);
+router.get('/filter/week',MacaddressValidation,TaskController.Week);
+
+
 
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const TaskModel = require('../model/TaskModel');
-const {startOfDay, endOfDay} = require('date-fns');
+const {startOfDay, endOfDay, endOfWeek, startOfWeek} = require('date-fns');
 
 const current = new Date();
 
@@ -72,7 +72,7 @@ class TaskController{
         })
     }
     async Late(req,res){
-        await TaskModel.find({'when':{'$lte':current}, 'macaddress':{'$in':req.body.macaddress}}).sort('when')
+        await TaskModel.find({'when':{'$lt':current}, 'macaddress':{'$in':req.body.macaddress}}).sort('when')
         .then(response => {
             return res.status(200).json(response);
         })
@@ -81,7 +81,17 @@ class TaskController{
         });
     }
     async Today(req,res){
-        await TaskModel.find({'macaddress':{'$in':req.body.macaddress},'when':{'$gte':startOfDay(current),'$lt':endOfDay(current)}
+        await TaskModel.find({'macaddress':{'$in':req.body.macaddress},'when':{'$gte':startOfDay(current),'$lte':endOfDay(current)}
+    }).sort('when')
+    .then(response=>{
+        return res.status(200).json(response);
+    })
+    .catch(err=> {
+        return res.status(500).json(err);
+    })
+}
+    async Week(req,res){
+        await TaskModel.find({'macaddress':{'$in':req.body.macaddress},'when':{'$gte':startOfWeek(current),'$lt':endOfWeek(current)}
     }).sort('when')
     .then(response=>{
         return res.status(200).json(response);
