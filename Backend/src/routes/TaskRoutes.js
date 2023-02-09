@@ -15,6 +15,7 @@ router.get('/filter/late',MacaddressValidation,TaskController.Late);
 router.get('/filter/today',MacaddressValidation,TaskController.Today);
 router.get('/filter/week',MacaddressValidation,TaskController.Week);
 router.get('/filter/month',MacaddressValidation,TaskController.Month);
+router.get('/filter/year',MacaddressValidation,TaskController.Year);
 
 
 
