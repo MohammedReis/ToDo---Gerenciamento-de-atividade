@@ -1,4 +1,4 @@
-const express =require('express');
+const express = require('express');
 const router = express.Router();
 
 const TaskController = require('../controller/TaskController');
@@ -10,7 +10,10 @@ router.put('/:id',TaskValidation, TaskController.Update);
 router.put('/:id/:done', TaskController.Done);
 router.get('/:id',TaskController.Show);
 router.delete('/:id',TaskController.Delete);
-
 router.get('/filter/all',MacaddressValidation,TaskController.All);
+router.get('/filter/today',MacaddressValidation,TaskController.Today);
+
+router.get('/filter/late',MacaddressValidation,TaskController.Late);
+
 
 module.exports = router;
