@@ -16,3 +16,24 @@ export const FilterArea = styled.div`
     }
 
 `
+export const Content = styled.div`
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content:center;
+`
+
+export const Title = styled.div`
+    margin-bottom: 20px;
+    width: 100%;
+    border-bottom: 1px solid #20295f;
+    display: flex;
+    justify-content:center;
+    h3{
+        color: #20295f;
+        position: relative;
+        top: 30px;
+        background: #fff;
+        padding: 0px 20px;
+    }
+`
