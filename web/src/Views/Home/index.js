@@ -1,8 +1,15 @@
+import * as S from'./styles'
+
+//Componentes
+import Header from "../../Components/Header";
+
 
 
 function Home() {
     return (
-        <h1>Você esta na HOME!</h1>
+        <S.Container>
+            <Header/>
+        </S.Container>
     );
 }
 
