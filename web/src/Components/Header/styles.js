@@ -29,7 +29,7 @@ export const RigthSide = styled.div`
     display:flex;
     align-items:center;
     justify-content:flex-end;
-
+    
     a{
         color:#fff;
         font-weight:bold;
@@ -39,6 +39,14 @@ export const RigthSide = styled.div`
             color:#ee6b26
         }
     }
+
+    button{
+            background:none;
+            border: none;
+            cursor: pointer;
+
+        }
+
     #notification{
         img{
             width:25px;
@@ -56,6 +64,7 @@ export const RigthSide = styled.div`
         &:hover{
             opacity:0.5;
         }
+
     }
     .dividir::after{
         content:"|";
