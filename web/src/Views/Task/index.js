@@ -14,7 +14,6 @@ function Task() {
     const [redirect, setRedirect] = useState(false);
     const [lateCount, setLateCount] = useState();
     const [type, setType] = useState();
-    //const [id, setId] = useState();
     const [done, setDone] = useState(false);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
