@@ -12,7 +12,6 @@ import TypeIcons from "../../utils/typeIcons";
 
 function Task() {
     const [redirect, setRedirect] = useState(false);
-    const [lateCount, setLateCount] = useState();
     const [type, setType] = useState();
     const [done, setDone] = useState(false);
     const [title, setTitle] = useState();
@@ -22,13 +21,6 @@ function Task() {
     const [macaddress, setMacaddress] = useState("11:11:11:11:11:11");
     const { id } = useParams();
 
-    async function lateVerify() {
-        await api
-            .get(`/task/filter/late/11:11:11:11:11:11`)
-            .then((response) => {
-                setLateCount(response.data.length);
-            });
-    }
 
     async function LoadTaskDetails() {
         await api
@@ -95,14 +87,13 @@ function Task() {
 
 
     useEffect(() => {
-        lateVerify();
         LoadTaskDetails();
     }, []);
 
     return (
         <S.Container>
             {redirect && <Navigate to={"/"} />}
-            <Header lateCount={lateCount} />
+            <Header />
 
             <S.Form>
                 <S.TypeIcons>
