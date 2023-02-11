@@ -1,6 +1,8 @@
 import {useState,useEffect} from 'react';
 import * as S from'./styles'
 import api from '../../services/api';
+import { useParams } from 'react-router-dom';
+import {format} from 'date-fns'
 
 //Componentes
 import Header from '../../Components/Header';
@@ -9,23 +11,38 @@ import TypeIcons from '../../utils/typeIcons';
 
 
 
+
 function Task() {
     const[lateCount, setLateCount] = useState();
     const [type, setType] = useState();
-    const [id, setId] = useState();
+    //const [id, setId] = useState();
     const [done, setDone] = useState(false);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [date, setDate] = useState();
     const [hour, setHour] = useState();
     const [macaddress, setMacaddress] = useState('11:11:11:11:11:11');
-
+    const {id} = useParams()
 
     async function lateVerify(){
         await api.get(`/task/filter/late/11:11:11:11:11:11`)
         .then(response =>{
             setLateCount(response.data.length)
         })
+    }
+
+    async function LoadTaskDetails(){
+        await api.get(`/task/${id}`)
+        .then(response =>{
+            setType(response.data.type)
+            setTitle(response.data.title)
+            setDescription(response.data.description)
+            setDate(format (new Date(response.data.when),'yyyy-MM-dd'))
+            setHour(format (new Date(response.data.when),'HH:mm'))
+        })
+        .catch(err =>{
+            console.error(err)})
+        
     }
 
     async function Save(){
@@ -40,6 +57,7 @@ function Task() {
 
     useEffect(() =>{
         lateVerify();
+        LoadTaskDetails();
     }, [])
 
 
