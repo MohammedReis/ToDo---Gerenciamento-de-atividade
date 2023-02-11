@@ -85,6 +85,16 @@ function Task() {
         }
     }
 
+    async function Remove(){
+        const res = window.confirm('Deseja realmente remover a tarefa ?')
+        if(res ==true){
+            await api.delete(`/task/${id}`)
+            .then(() =>setRedirect(true));
+            
+        }
+    }
+
+
     useEffect(() => {
         lateVerify();
         LoadTaskDetails();
@@ -165,7 +175,7 @@ function Task() {
                         />
                         <span>CONCLUÍDO</span>
                     </div>
-                    <button type="button">EXCLUIR</button>
+                    {id && <button type="button"onClick={Remove} >EXCLUIR</button>}
                 </S.Options>
 
                 <S.Save>
