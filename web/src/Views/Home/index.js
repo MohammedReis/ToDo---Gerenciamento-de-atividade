@@ -12,7 +12,7 @@ import TaskCard from '../../Components/TaskCard';
 
 
 function Home() {
-    const[filterActived, setFilterActived] = useState('today')
+    const[filterActived, setFilterActived] = useState('all')
     const[tasks, setTask] = useState([])
     const[lateCount, setLateCount] = useState();
 

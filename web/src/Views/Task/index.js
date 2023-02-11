@@ -2,7 +2,8 @@ import {useState,useEffect} from 'react';
 import * as S from'./styles'
 import api from '../../services/api';
 import { useParams } from 'react-router-dom';
-import {format} from 'date-fns'
+import {format} from 'date-fns';
+import {Navigate} from'react-router-dom';
 
 //Componentes
 import Header from '../../Components/Header';
@@ -13,6 +14,7 @@ import TypeIcons from '../../utils/typeIcons';
 
 
 function Task() {
+    const[redirect,setRedirect] = useState(false);
     const[lateCount, setLateCount] = useState();
     const [type, setType] = useState();
     //const [id, setId] = useState();
@@ -41,18 +43,29 @@ function Task() {
             setHour(format (new Date(response.data.when),'HH:mm'))
         })
         .catch(err =>{
-            console.error(err)})
+            alert(err.data)})
         
     }
 
     async function Save(){
-        await api.post('/task',{
-            macaddress,
-            type,
-            title,
-            description,
-            when:`${date}T${hour}:00.000`
-        }).then(() => alert('TAREFA CADASTRADA COM SUCESSO !'))
+        if(id){
+            await api.put(`/task/${id}`,{
+                macaddress,
+                done,
+                type,
+                title,
+                description,
+                when:`${date}T${hour}:00.000`
+            }).then(() => setRedirect(true))
+        }else{
+            await api.post('/task',{
+                macaddress,
+                type,
+                title,
+                description,
+                when:`${date}T${hour}:00.000`
+            }).then(() => setRedirect(true))
+    }
     }
 
     useEffect(() =>{
@@ -63,6 +76,7 @@ function Task() {
 
     return (
         <S.Container>
+            { redirect && <Navigate to={"/"}/> }
             <Header lateCount={lateCount} />
             
 
