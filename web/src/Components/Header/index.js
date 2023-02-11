@@ -7,16 +7,22 @@ import logo from '../../assets/logo.png';
 import bell from '../../assets/bell.png'
 
 import api from '../../services/api';
+import isConnected from '../../utils/isConnected';
 
 function Header({clickNotification}) {
     const[lateCount, setLateCount] = useState();
 
 
     async function lateVerify(){
-        await api.get(`/task/filter/late/11:11:11:11:11:11`)
+        await api.get(`/task/filter/late/${isConnected}`)
         .then(response =>{
             setLateCount(response.data.length)
         })
+    }
+
+    async function Logout(){
+        localStorage.removeItem('@todo/macaddress');
+        window.location.reload();
     }
 
     useEffect(() =>{
@@ -33,7 +39,11 @@ function Header({clickNotification}) {
                 <span className='dividir'/>
                 <Link to='/task'>NOVA TAREFA</Link>
                 <span className='dividir'/>
+                {!isConnected ?
                 <Link to='/qrcode'>SINCRONIZAR CELULAR</Link>
+                :
+                <button type='button' onClick={Logout}>SAIR</button>
+                }
                 {
                 lateCount &&
                     <>    

@@ -30,7 +30,7 @@ export const RigthSide = styled.div`
     align-items:center;
     justify-content:flex-end;
     
-    a{
+    a, button{
         color:#fff;
         font-weight:bold;
         text-decoration:none;
@@ -70,5 +70,9 @@ export const RigthSide = styled.div`
         content:"|";
         margin: 0 10px;
         color:#fff;
+    }
+    button{
+        font-size:16px;
+
     }
 `

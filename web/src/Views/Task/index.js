@@ -4,6 +4,7 @@ import api from "../../services/api";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Navigate } from "react-router-dom";
+import isConnected from "../../utils/isConnected";
 
 //Componentes
 import Header from "../../Components/Header";
@@ -18,7 +19,6 @@ function Task() {
     const [description, setDescription] = useState();
     const [date, setDate] = useState();
     const [hour, setHour] = useState();
-    const [macaddress, setMacaddress] = useState("11:11:11:11:11:11");
     const { id } = useParams();
 
 
@@ -55,7 +55,7 @@ function Task() {
         if (id) {
             await api
                 .put(`/task/${id}`, {
-                    macaddress,
+                    macaddress:isConnected,
                     done,
                     type,
                     title,
@@ -66,7 +66,7 @@ function Task() {
         } else {
             await api
                 .post("/task", {
-                    macaddress,
+                    macaddress:isConnected,
                     type,
                     title,
                     description,
@@ -87,6 +87,9 @@ function Task() {
 
 
     useEffect(() => {
+        if(!isConnected){
+            setRedirect(true);
+        }
         LoadTaskDetails();
     }, []);
 
