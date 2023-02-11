@@ -14,15 +14,16 @@ const TaskValidation = async (req, res, next) => {
     return res.status(400).json({error: 'Descrição é obrigatoria'});
     else if(!when)
     return res.status(400).json({error: 'Data e Hora são obrigatorios'});
-    else if(isPast(new Date(when)))
-    return res.status(400).json({error: 'Escolha uma data e Hora futura'});
     else{
         let exists;
 
         if(req.params.id){
             exists = await TaskModel.findOne({'_id':{'$ne':req.params.id},'when':{'$eq':new Date(when)}, 'macaddress':{'$in':macaddress}})
         }else{
-        exists = await TaskModel.findOne({'when':{'$eq':new Date(when)}, 'macaddress':{'$in':macaddress}});
+            if(isPast(new Date(when))){
+                return res.status(400).json({error: 'Escolha uma data e Hora futura'});
+            }
+            exists = await TaskModel.findOne({'when':{'$eq':new Date(when)}, 'macaddress':{'$in':macaddress}});
         }
         if(exists){
             return res.status(400).json({error: 'Ja existe uma tarefa cadastrada nesse Dia e Horario'});
