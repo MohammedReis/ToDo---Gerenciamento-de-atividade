@@ -1,11 +1,14 @@
-import {View,Text} from 'react-native'
+import {View,Text} from 'react-native';
 
-import styles from './styles'
+import styles from './styles';
+
+//COMPONENTES
+import Header from '../../Components/Header';
 
 export default function Home(){
     return( 
     <View style={styles.container}>
-        <Text>Bem vindo a tela Home</Text>
+        <Header showNotifications={true} showBack={false}/>
     </View>
     )
 }
