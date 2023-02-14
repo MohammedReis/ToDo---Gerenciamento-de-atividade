@@ -19,7 +19,7 @@ export default function Home(){
 
     async function loadTasks(){
         setLoad(true);
-        await api.get('/task/filter/all/11:11:11:11:11:11')
+        await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
         .then(response =>{
             setTask(response.data)
             setLoad(false);
