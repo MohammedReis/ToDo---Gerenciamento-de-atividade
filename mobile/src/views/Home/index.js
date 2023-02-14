@@ -1,4 +1,4 @@
-import {View,Text, TouchableOpacity} from 'react-native';
+import {View,Text, TouchableOpacity,ScrollView} from 'react-native';
 import { useState } from 'react';
 
 import styles from './styles';
@@ -6,6 +6,7 @@ import styles from './styles';
 //COMPONENTES
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
+import TaskCard from '../../Components/TaskCard';
 
 export default function Home(){
     const[filter,setFilter] = useState('today')
@@ -30,6 +31,24 @@ export default function Home(){
                 <Text style={filter == 'year' ? styles.filterTextActived : styles.filterTextInative}>Ano</Text>
             </TouchableOpacity>
         </View>
+
+        <View style={styles.title}>
+            <Text style={styles.titleText}>TAREFAS</Text>
+        </View>
+        
+        <ScrollView style={styles.content}contentContainerStyle={{alignItems:'center'}} >
+            <TaskCard/>
+            <TaskCard done={true}/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+            <TaskCard/>
+        </ScrollView>
 
         <Footer icon={'add'}/>
     </View>
