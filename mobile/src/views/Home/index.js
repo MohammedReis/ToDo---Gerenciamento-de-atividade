@@ -13,9 +13,10 @@ import TaskCard from '../../Components/TaskCard';
 import api from '../../services/api';
 
 export default function Home(){
-    const[filter, setFilter] = useState('today');
+    const [filter, setFilter] = useState('today');
     const [task, setTask] = useState([]);
     const [load, setLoad] = useState(false);  
+    const [lateCount, setLateCount] = useState();
 
     async function loadTasks(){
         setLoad(true);
@@ -26,13 +27,26 @@ export default function Home(){
         }).catch(error =>console.log(error));
     }
 
+    async function LateVerify(){
+        setLoad(true);
+        await api.get(`/task/filter/late/11:11:11:11:11:11`)
+        .then(response =>{
+            setLateCount(response.data.length);
+        }).catch(error =>console.log(error));
+    }
+
+    function Notification(){
+        setFilter('late')
+    }
+
     useEffect(()=>{
         loadTasks();
+        LateVerify();
     },[filter])
 
     return( 
     <View style={styles.container}>
-        <Header showNotifications={true} showBack={false}/>
+        <Header showNotifications={true} showBack={false} pressNotification={Notification} late={lateCount}/>
 
         <View style={styles.filter}>
             <TouchableOpacity onPress={() => setFilter('all')}>
@@ -53,7 +67,7 @@ export default function Home(){
         </View>
 
         <View style={styles.title}>
-            <Text style={styles.titleText}>TAREFAS</Text>
+            <Text style={styles.titleText}>TAREFAS{filter == 'late' && ' ATRASADAS'}</Text>
         </View>
 
         <ScrollView style={styles.content}contentContainerStyle={{alignItems:'center'}} >
