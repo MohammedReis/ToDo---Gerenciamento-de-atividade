@@ -35,19 +35,9 @@ export default function Home(){
         <View style={styles.title}>
             <Text style={styles.titleText}>TAREFAS</Text>
         </View>
-        
+
         <ScrollView style={styles.content}contentContainerStyle={{alignItems:'center'}} >
-            <TaskCard/>
             <TaskCard done={true}/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
-            <TaskCard/>
         </ScrollView>
 
         <Footer icon={'add'}/>
